@@ -1,27 +1,11 @@
 <?php
-$Right = filter_input(INPUT_POST, 'Right');
-$Forwards = filter_input(INPUT_POST, 'Forwards');
-$Left = filter_input(INPUT_POST, 'Left');
-$Backwards = filter_input(INPUT_POST, 'Backwards');
+include_once 'dbh.php';
 
-// Create connection
-$conn = new mysqli ($localhost, $Yara, $test1234, $robot_control);
+$Right = $_POST['Right'];
+$Forwards= $_POST['Forwards'];
+$Left = $_POST['Left'];
+$Backwards= $_POST['Backwards'];
 
-if (mysqli_connect_error()){
-die('Connect Error ('. mysqli_connect_errno() .') '
-. mysqli_connect_error());
-}
-else{
-$sql = "INSERT INTO robot (Right, Forwards, Left, Backwards)
-values ('$Right','$Forwards', '$Left', '$Backwards')";
-
-if ($conn->query($sql)){
-echo "SUCSESS";
-}
-else{
-echo "Error: ". $sql ."
-". $conn->error;
-}
-$conn->close();
-
-?>
+$sql= "INSERT INTO robot (Right, Forwards, Left, Backwards) VALUES ('$Right', '$Forwards', '$Left','$Backwards'); ";
+ mysqli_query($conn, $sql);
+ 
